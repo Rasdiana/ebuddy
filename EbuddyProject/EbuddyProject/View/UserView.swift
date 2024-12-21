@@ -8,12 +8,17 @@
 import SwiftUI
 import _PhotosUI_SwiftUI
 
-struct UserView: View {
-    @ObservedObject private var viewModel = UserViewModel()
+struct UserView  : View {
+    @ObservedObject private var viewModel : UserViewModel
     @Environment(\.colorScheme) var colorScheme
     @State var imageSelection: PhotosPickerItem? = nil
     @State var uiImage: UIImage? = nil
     @State var apiService = Service()
+    
+    init (flag : Int) {
+        self.viewModel = UserViewModel(flag: flag)
+    }
+    
     var body: some View {
         VStack (alignment: .leading) {
             //COMMIT 1 - 3
@@ -62,14 +67,16 @@ struct UserView: View {
                     }
                 }
             }else{
-                Text("user.uid ?? ")
+                Text("No User")
             }
         }.padding(.leading)
-        
     }
-    
 }
 
+
+
 #Preview {
-    UserView().preferredColorScheme(.dark)
+    @Previewable @State var value = 1
+    UserView(flag: value).preferredColorScheme(.dark)
+    
 }

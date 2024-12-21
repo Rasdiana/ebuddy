@@ -15,14 +15,19 @@ class UserViewModel: ObservableObject {
     @Published var listUser : [UserJson] = [UserJson]()
 
     private var db = Firestore.firestore()
-    init()  {
-        fetchData() 
+    init(flag : Int)  {
+        if(flag == 1){
+            fetchData()
+        }else{
+            fetchDataMultipleQueries()
+        }
+        
     }
     
     
     
     func fetchDataMultipleQueries() {
-        db.collection("USERS").order(by: "active", descending: true).order(by: "rating", descending: true).order(by: "service_price", descending: false).whereField("ge", isEqualTo: 1)
+        db.collection("USERS").order(by: "active", descending: true).order(by: "rating", descending: true).order(by: "service_price", descending: false).whereField("ge", isEqualTo: 0)
                 .addSnapshotListener { [weak self] (querySnapshot, error) in
                   guard let documents = querySnapshot?.documents else {
                     print("No documents in 'colors' collection")
