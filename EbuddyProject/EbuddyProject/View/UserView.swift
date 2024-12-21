@@ -26,6 +26,7 @@ struct UserView: View {
                         Text(item.phoneNumber ?? "")
                         Text(item.uid ?? "")
                         Text(item.servicePrice?.stringValue ?? "")
+                        Text(String(item.rating ?? 0))
                         if (item.media != "") {
                             AsyncImage(url: URL(string: item.media!)) { image in
                                 image.resizable()
